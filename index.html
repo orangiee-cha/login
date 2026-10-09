@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Nutri BakeShop Login</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #f1f8f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.box {
+    width: 360px;
+    max-height: 95vh;
+    overflow-y: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px #bbb;
+    text-align: center;
+}
+
+.box.create-mode {
+    width: 450px;
+}
+
+.logo {
+    width: 200px;
+}
+
+h1,
+h2 {
+    color: #198754;
+}
+
+p {
+    color: #666;
+}
+
+label {
+    display: block;
+    text-align: left;
+    margin: 8px 0 5px;
+    font-weight: bold;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 11px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    font-size: 14px;
+}
+
+textarea {
+    height: 70px;
+    resize: none;
+}
+
+button {
+    width: 100%;
+    padding: 11px;
+    margin-top: 8px;
+    border: 0;
+    border-radius: 7px;
+    background: #198754;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #146c43;
+}
+
+.login-links {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+}
+
+.link-button {
+    width: auto;
+    padding: 0;
+    margin: 0;
+    background: none;
+    color: #198754;
+    font-weight: bold;
+}
+
+.link-button:hover {
+    background: none;
+    color: #146c43;
+}
+
+.screen {
+    display: none;
+}
+
+#login {
+    display: block;
+}
+
+.msg {
+    font-weight: bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+    <div id="login" class="screen">
+
+        <img
+            src="C:\Users\Charmaine\Downloads\ChatGPT_Image_Sep_17__2026__04_55_50_PM-removebg-preview.png"
+            class="logo"
+        >
+
+        <h1>Nutri BakeShop</h1>
+
+        <p>Welcome! Please login to continue.</p>
+
+        <label>Email</label>
+
+        <input
+            id="email"
+            type="text"
+            placeholder="Enter your email"
+        >
+
+        <label>Password</label>
+
+        <input
+            id="password"
+            type="password"
+            placeholder="Enter password"
+        >
+
+        <button onclick="login()">
+            Login
+        </button>
+
+        <div class="login-links">
+
+            <button
+                class="link-button"
+                onclick="show('forgot')"
+            >
+                Forgot Password?
+            </button>
+
+            <button
+                class="link-button"
+                onclick="show('create')"
+            >
+                Create Account
+            </button>
+
+        </div>
+
+        <p id="loginMsg" class="msg"></p>
+
+    </div>
+
+
+    <div id="create" class="screen">
+
+        <img
+            src="C:\Users\Charmaine\Downloads\ChatGPT_Image_Sep_17__2026__04_55_50_PM-removebg-preview.png"
+            class="logo"
+        >
+
+        <h2>Create Account</h2>
+
+        <label>Full Name</label>
+
+        <input
+            id="fullName"
+            type="text"
+            placeholder="Enter full name"
+        >
+
+        <label>Email</label>
+
+        <input
+            id="newEmail"
+            type="text"
+            placeholder="Enter email"
+        >
+
+        <label>Password</label>
+
+        <input
+            id="newPassword"
+            type="password"
+            placeholder="Enter password"
+        >
+
+        <label>Confirm Password</label>
+
+        <input
+            id="confirmPassword"
+            type="password"
+            placeholder="Confirm password"
+        >
+
+        <button onclick="createAccount()">
+            Create Account
+        </button>
+
+        <p id="createMsg" class="msg"></p>
+
+        <button
+            class="link-button"
+            onclick="show('login')"
+        >
+            ← Back to Login
+        </button>
+
+    </div>
+
+
+    <div id="auth" class="screen">
+
+        <img
+            src="C:\Users\Charmaine\Downloads\ChatGPT_Image_Sep_17__2026__04_55_50_PM-removebg-preview.png"
+            class="logo"
+        >
+
+        <h2>Authenticator Verification</h2>
+
+        <p>Enter the 6-digit authentication code.</p>
+
+        <input
+            id="authCode"
+            type="text"
+            inputmode="numeric"
+            maxlength="6"
+            placeholder="000000"
+        >
+
+        <button onclick="verifyCode()">
+            Verify Code
+        </button>
+
+        <p id="authMsg" class="msg"></p>
+
+        <button
+            class="link-button"
+            onclick="show('login')"
+        >
+            ← Back to Login
+        </button>
+
+    </div>
+
+
+    <div id="forgot" class="screen">
+
+        <img
+            src="C:\Users\Charmaine\Downloads\ChatGPT_Image_Sep_17__2026__04_55_50_PM-removebg-preview.png"
+            class="logo"
+        >
+
+        <h2>Forgot Password</h2>
+
+        <p>Enter your registered email.</p>
+
+        <input
+            id="forgotEmail"
+            type="text"
+            placeholder="Enter email"
+        >
+
+        <button onclick="forgot()">
+            Continue
+        </button>
+
+        <p id="forgotMsg" class="msg"></p>
+
+        <button
+            class="link-button"
+            onclick="show('login')"
+        >
+            ← Back to Login
+        </button>
+
+    </div>
+
+
+    <div id="reset" class="screen">
+
+        <img
+            src="C:\Users\Charmaine\Downloads\ChatGPT_Image_Sep_17__2026__04_55_50_PM-removebg-preview.png"
+            class="logo"
+        >
+
+        <h2>Reset Password</h2>
+
+        <input
+            id="resetPass"
+            type="password"
+            placeholder="New password"
+        >
+
+        <input
+            id="resetConfirm"
+            type="password"
+            placeholder="Confirm password"
+        >
+
+        <button onclick="resetPassword()">
+            Reset Password
+        </button>
+
+        <p id="resetMsg" class="msg"></p>
+
+    </div>
+
+</div>
+
+
+<script>
+
+var accountNames = [];
+var accountEmails = [];
+var accountPasswords = [];
+var accountRoles = [];
+
+var accountCount = 0;
+
+var currentAccount = -1;
+var loginAccount = -1;
+
+var verificationType = "";
+
+accountNames[0] = "Administrator";
+accountEmails[0] = "admin@gmail.com";
+accountPasswords[0] = "Admin@123";
+accountRoles[0] = "admin";
+
+accountCount = 1;
+
+
+function show(screen)
+{
+    document.getElementById("login").style.display = "none";
+    document.getElementById("create").style.display = "none";
+    document.getElementById("auth").style.display = "none";
+    document.getElementById("forgot").style.display = "none";
+    document.getElementById("reset").style.display = "none";
+
+    document.getElementById(screen).style.display = "block";
+
+    var box = document.querySelector(".box");
+
+    if (screen == "create")
+    {
+        box.className = "box create-mode";
+    }
+    else
+    {
+        box.className = "box";
+    }
+}
+
+
+function validName(name)
+{
+    var i = 0;
+
+    while (i < name.length)
+    {
+        var character = name[i];
+
+        if (
+            !(
+                (character >= "A" && character <= "Z") ||
+                (character >= "a" && character <= "z") ||
+                character == " "
+            )
+        )
+        {
+            return false;
+        }
+
+        i = i + 1;
+    }
+
+    return true;
+}
+
+
+function validEmail(email)
+{
+    var at = false;
+    var gmail = false;
+
+    var i = 0;
+
+    while (i < email.length)
+    {
+        if (email[i] == "@")
+        {
+            at = true;
+        }
+
+        i = i + 1;
+    }
+
+    if (email.length >= 10)
+    {
+        var start = email.length - 10;
+
+        if (
+            email[start] == "@" &&
+            email[start + 1] == "g" &&
+            email[start + 2] == "m" &&
+            email[start + 3] == "a" &&
+            email[start + 4] == "i" &&
+            email[start + 5] == "l" &&
+            email[start + 6] == "." &&
+            email[start + 7] == "c" &&
+            email[start + 8] == "o" &&
+            email[start + 9] == "m"
+        )
+        {
+            gmail = true;
+        }
+    }
+
+    if (at == true && gmail == true)
+    {
+        return true;
+    }
+
+    return false;
+}
+
+
+function validPassword(pass)
+{
+    var hasCapital = false;
+    var hasSpecial = false;
+
+    var i = 0;
+
+    while (i < pass.length)
+    {
+        var character = pass[i];
+
+        if (
+            character >= "A" &&
+            character <= "Z"
+        )
+        {
+            hasCapital = true;
+        }
+
+        if (
+            character == "!" ||
+            character == "@" ||
+            character == "#" ||
+            character == "$" ||
+            character == "%" ||
+            character == "^" ||
+            character == "&" ||
+            character == "*" ||
+            character == "(" ||
+            character == ")" ||
+            character == "-" ||
+            character == "_" ||
+            character == "+"
+        )
+        {
+            hasSpecial = true;
+        }
+
+        i = i + 1;
+    }
+
+    if (
+        pass.length >= 8 &&
+        hasCapital == true &&
+        hasSpecial == true
+    )
+    {
+        return true;
+    }
+
+    return false;
+}
+
+
+function createAccount()
+{
+    var name = document.getElementById("fullName").value;
+    var email = document.getElementById("newEmail").value;
+    var pass = document.getElementById("newPassword").value;
+    var confirm = document.getElementById("confirmPassword").value;
+
+    var msg = document.getElementById("createMsg");
+
+    if (
+        name == "" ||
+        email == "" ||
+        pass == "" ||
+        confirm == ""
+    )
+    {
+        msg.innerHTML = "Please fill in all fields.";
+        msg.style.color = "red";
+        return;
+    }
+
+    if (validName(name) == false)
+    {
+        msg.innerHTML =
+            "Full name must contain letters and spaces only.";
+
+        msg.style.color = "red";
+        return;
+    }
+
+    if (validEmail(email) == false)
+    {
+        msg.innerHTML = "Email must be a Gmail address.";
+        msg.style.color = "red";
+        return;
+    }
+
+    if (validPassword(pass) == false)
+    {
+        msg.innerHTML =
+            "Password must be at least 8 characters with 1 capital letter and 1 special character.";
+
+        msg.style.color = "red";
+        return;
+    }
+
+    if (pass != confirm)
+    {
+        msg.innerHTML = "Passwords do not match.";
+        msg.style.color = "red";
+        return;
+    }
+
+    var i = 0;
+
+    while (i < accountCount)
+    {
+        if (
+            name == accountNames[i] &&
+            email == accountEmails[i]
+        )
+        {
+            msg.innerHTML = "You already have account.";
+            msg.style.color = "red";
+            return;
+        }
+
+        i = i + 1;
+    }
+
+    i = 0;
+
+    while (i < accountCount)
+    {
+        if (email == accountEmails[i])
+        {
+            msg.innerHTML = "Email is already registered.";
+            msg.style.color = "red";
+            return;
+        }
+
+        i = i + 1;
+    }
+
+    accountNames[accountCount] = name;
+    accountEmails[accountCount] = email;
+    accountPasswords[accountCount] = pass;
+    accountRoles[accountCount] = "customer";
+
+    accountCount = accountCount + 1;
+
+    msg.innerHTML = "Customer account created successfully!";
+    msg.style.color = "#198754";
+
+    document.getElementById("fullName").value = "";
+    document.getElementById("newEmail").value = "";
+    document.getElementById("newPassword").value = "";
+    document.getElementById("confirmPassword").value = "";
+
+    setTimeout(
+        function()
+        {
+            show("login");
+
+            document.getElementById("loginMsg").innerHTML =
+                "Account created. You can now login.";
+
+            document.getElementById("loginMsg").style.color =
+                "#198754";
+        },
+        1000
+    );
+}
+
+
+function login()
+{
+    var email = document.getElementById("email").value;
+    var pass = document.getElementById("password").value;
+
+    var msg = document.getElementById("loginMsg");
+
+    if (email == "" || pass == "")
+    {
+        msg.innerHTML = "Please fill in all fields.";
+        msg.style.color = "red";
+        return;
+    }
+
+    if (validEmail(email) == false)
+    {
+        msg.innerHTML = "Email must be a Gmail address.";
+        msg.style.color = "red";
+        return;
+    }
+
+    var i = 0;
+    var foundEmail = false;
+    var foundAccount = false;
+
+    while (i < accountCount)
+    {
+        if (email == accountEmails[i])
+        {
+            foundEmail = true;
+
+            if (pass == accountPasswords[i])
+            {
+                foundAccount = true;
+                loginAccount = i;
+            }
+
+            break;
+        }
+
+        i = i + 1;
+    }
+
+    if (foundEmail == false)
+    {
+        msg.innerHTML = "Not registered.";
+        msg.style.color = "red";
+        return;
+    }
+
+    if (foundAccount == false)
+    {
+        msg.innerHTML = "Incorrect email or password.";
+        msg.style.color = "red";
+        return;
+    }
+
+    verificationType = "login";
+
+    show("auth");
+
+    document.getElementById("authCode").value = "";
+    document.getElementById("authMsg").innerHTML = "";
+
+    document.getElementById("authCode").focus();
+}
+
+
+function verifyCode()
+{
+    var code = document.getElementById("authCode").value;
+    var msg = document.getElementById("authMsg");
+
+    if (code == "")
+    {
+        msg.innerHTML =
+            "Please enter the authentication code.";
+
+        msg.style.color = "red";
+
+        return;
+    }
+
+    if (code != "123456")
+    {
+        msg.innerHTML =
+            "Invalid authentication code.";
+
+        msg.style.color = "red";
+
+        return;
+    }
+
+    msg.innerHTML =
+        "Authentication successful.";
+
+    msg.style.color = "#198754";
+
+    if (verificationType == "login")
+    {
+        if (loginAccount >= 0)
+        {
+            if (accountRoles[loginAccount] == "admin")
+            {
+                setTimeout(
+                    function()
+                    {
+                        window.location.href = "pos.html";
+                    },
+                    500
+                );
+            }
+            else
+            {
+                setTimeout(
+                    function()
+                    {
+                        window.location.href = "posou.html";
+                    },
+                    500
+                );
+            }
+        }
+    }
+
+    else if (verificationType == "forgot")
+    {
+        setTimeout(
+            function()
+            {
+                show("reset");
+
+                document.getElementById("resetPass").value = "";
+                document.getElementById("resetConfirm").value = "";
+                document.getElementById("resetMsg").innerHTML = "";
+            },
+            500
+        );
+    }
+}
+
+
+function forgot()
+{
+    var email = document.getElementById("forgotEmail").value;
+
+    var msg = document.getElementById("forgotMsg");
+
+    if (email == "")
+    {
+        msg.innerHTML = "Please enter your email.";
+        msg.style.color = "red";
+
+        return;
+    }
+
+    if (validEmail(email) == false)
+    {
+        msg.innerHTML = "Email must be a Gmail address.";
+        msg.style.color = "red";
+
+        return;
+    }
+
+    var i = 0;
+    var found = false;
+
+    while (i < accountCount)
+    {
+        if (email == accountEmails[i])
+        {
+            found = true;
+            currentAccount = i;
+            break;
+        }
+
+        i = i + 1;
+    }
+
+    if (found == true)
+    {
+        verificationType = "forgot";
+
+        show("auth");
+
+        document.getElementById("authCode").value = "";
+        document.getElementById("authMsg").innerHTML = "";
+
+        document.getElementById("authCode").focus();
+    }
+    else
+    {
+        msg.innerHTML = "Not registered.";
+        msg.style.color = "red";
+    }
+}
+
+
+function resetPassword()
+{
+    var pass = document.getElementById("resetPass").value;
+    var confirm = document.getElementById("resetConfirm").value;
+    var msg = document.getElementById("resetMsg");
+
+    if (pass == "" || confirm == "")
+    {
+        msg.innerHTML =
+            "Please fill in both fields.";
+
+        msg.style.color = "red";
+
+        return;
+    }
+
+    if (validPassword(pass) == false)
+    {
+        msg.innerHTML =
+            "Password must be at least 8 characters with 1 capital letter and 1 special character.";
+
+        msg.style.color = "red";
+
+        return;
+    }
+
+    if (pass != confirm)
+    {
+        msg.innerHTML =
+            "Passwords do not match.";
+
+        msg.style.color = "red";
+
+        return;
+    }
+
+    accountPasswords[currentAccount] = pass;
+
+    msg.innerHTML =
+        "Password changed successfully.";
+
+    msg.style.color = "#198754";
+
+    document.getElementById("resetPass").value = "";
+    document.getElementById("resetConfirm").value = "";
+
+    setTimeout(
+        function()
+        {
+            show("login");
+
+            document.getElementById("loginMsg").innerHTML =
+                "Password changed successfully. You can now login.";
+
+            document.getElementById("loginMsg").style.color =
+                "#198754";
+
+        },
+        1000
+    );
+}
+
+</script>
+
+</body>
+</html>
